@@ -23,4 +23,4 @@ function checkExpiry(expiresAt, now = Date.now()) {
   return now < Date.parse(expiresAt);
 }
 
-console.log(activateKey("DEMO-1-DAY"));
+console.log(activateKey("STRcfg-1-DAY"));
