@@ -1,0 +1,9 @@
+{
+  "name": "lua-license-server",
+  "version": "1.0.0",
+  "description": "License server",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  }
+}
