@@ -1,26 +1,22 @@
-const KEYS = {
-  "STRcfg-1-DAY": 1,
-  "STRcfg-3-DAYS": 3,
-  "STRcfg-7-DAYS": 7
-};
+const http = require("http");
 
-function activateKey(key, now = Date.now()) {
-  const days = KEYS[key];
+const PORT = process.env.PORT || 3000;
 
-  if (!days) {
-    return { ok: false, message: "Kalit noto‘g‘ri" };
+const server = http.createServer((req, res) => {
+  res.setHeader("Content-Type", "application/json");
+
+  if (req.url === "/" && req.method === "GET") {
+    res.writeHead(200);
+    return res.end(JSON.stringify({
+      ok: true,
+      message: "License server ishlayapti!"
+    }));
   }
 
-  const expiresAt = now + days * 24 * 60 * 60 * 1000;
+  res.writeHead(404);
+  res.end(JSON.stringify({ ok: false, message: "Topilmadi" }));
+});
 
-  return {
-    ok: true,
-    expiresAt: new Date(expiresAt).toISOString()
-  };
-}
-
-function checkExpiry(expiresAt, now = Date.now()) {
-  return now < Date.parse(expiresAt);
-}
-
-console.log(activateKey("STRcfg-1-DAY"));
+server.listen(PORT, "0.0.0.0", () => {
+  console.log(`Server ${PORT} portda ishlayapti`);
+});
